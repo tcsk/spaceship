@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     let config = {
         type: Phaser.AUTO,
         parent: 'phaser-example',
@@ -35,7 +35,7 @@ window.onload = function() {
 
     function create() {
         let self = this;
-        this.socket = io('192.168.0.169:49999');
+        this.socket = io('http://' + window.location.hostname + ':49999');
         this.otherPlayers = this.physics.add.group();
 
         this.socket.on('currentPlayers', function (players) {
@@ -69,8 +69,8 @@ window.onload = function() {
             });
         });
 
-        this.blueScoreText = this.add.text(16, 16, '', { fontSize: '32px', fill: '#0000FF' });
-        this.redScoreText = this.add.text(584, 16, '', { fontSize: '32px', fill: '#FF0000' });
+        this.blueScoreText = this.add.text(16, 16, '', {fontSize: '32px', fill: '#0000FF'});
+        this.redScoreText = this.add.text(584, 16, '', {fontSize: '32px', fill: '#FF0000'});
 
         this.socket.on('scoreUpdate', function (scores) {
             self.blueScoreText.setText('Blue: ' + scores.blue);
@@ -120,7 +120,7 @@ window.onload = function() {
             let y = this.ship.y;
             let r = this.ship.rotation;
             if (this.ship.oldPosition && (x !== this.ship.oldPosition.x || y !== this.ship.oldPosition.y || r !== this.ship.oldPosition.rotation)) {
-                this.socket.emit('playerMovement', { x: this.ship.x, y: this.ship.y, rotation: this.ship.rotation });
+                this.socket.emit('playerMovement', {x: this.ship.x, y: this.ship.y, rotation: this.ship.rotation});
             }
 
             // save old position data
@@ -162,11 +162,10 @@ window.onload = function() {
         var windowRatio = windowWidth / windowHeight;
         var gameRatio = game.config.width / game.config.height;
 
-        if(windowRatio < gameRatio){
+        if (windowRatio < gameRatio) {
             canvas.style.width = windowWidth + "px";
             canvas.style.height = (windowWidth / gameRatio) + "px";
-        }
-        else {
+        } else {
             canvas.style.width = (windowHeight * gameRatio) + "px";
             canvas.style.height = windowHeight + "px";
         }
