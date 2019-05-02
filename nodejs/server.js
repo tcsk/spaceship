@@ -71,5 +71,5 @@ io.on('connection', function (socket) {
 });
 
 server.listen(49999, function () {
-    console.log(`Listening on ${server.address().port}`);
+    console.log('Listening on ${server.address().port}');
 });
